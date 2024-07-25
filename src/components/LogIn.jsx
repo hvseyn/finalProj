@@ -1,9 +1,19 @@
-import React from 'react';
-import { assets } from '../assets/assets';
+import React, { useState } from 'react';
+import { assets, users } from '../assets/assets';
 import { useNavigate } from 'react-router-dom';
 
 const LogIn = () => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLogin, setIsLogin] = useState(true);
+
+  function login() {
+    let user = users.find(item => item.username == username && item.password == password);
+    localStorage.setItem("loggedUser",  JSON.stringify(user));
+    localStorage.setItem("isLogin",isLogin)
+  }
+
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#121212] text-white">
@@ -34,12 +44,14 @@ const LogIn = () => {
         <div className="mt-4">
           <p>Email or username</p>
           <input
+            onChange={(e) => setUsername(e.target.value)}
             type="text"
             placeholder='Email or username'
             className="w-full p-3 rounded bg-[#282828] text-white focus:outline-none mb-2"
           />
           <p>Password</p>
           <input
+            onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder='Password'
             className="w-full p-3 rounded bg-[#282828] text-white focus:outline-none mb-4"
@@ -49,14 +61,14 @@ const LogIn = () => {
             <label htmlFor="rememberMe" className="text-gray-400">Remember me</label>
           </div>
           <button
-            onClick={() => navigate('/dashboard')}
+            onClick={() => [navigate('/'), login()]}
             className="w-full bg-[#1DB954] text-white py-2 rounded hover:bg-[#1ed760] transition-colors"
           >
             Log in
           </button>
-        <div className="text-center mt-4 text-gray-400">
-          <a href="#" className="text-white underline ">Forgot your password?</a>
-        </div>
+          <div className="text-center mt-4 text-gray-400">
+            <a href="#" className="text-white underline ">Forgot your password?</a>
+          </div>
         </div>
       </div>
     </div>

@@ -265,3 +265,11 @@ export const artists = [
         image: billieeilish
     }
 ];
+
+export const users=[
+    {
+        username:"huseyn",
+        password:"huseyn0000",
+        playlist:[]
+    }
+]

@@ -5,6 +5,8 @@ import SignUp from "./SignUp";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  let isLogin=localStorage.getItem("isLogin")
+  let loggedUser=JSON.parse(localStorage.getItem("loggedUser"))
 
   return (
     <>
@@ -27,27 +29,35 @@ const Navbar = () => {
             tabIndex="0"
           />
         </div>
-        <div className="flex items-center gap-4">
-        <p onClick={()=> navigate("signup")}
-            className="bg-black py-1 px-3 rounded-2xl text-[15px] cursor-pointer"
-            role="button"
-            tabIndex="0"
-          >
-            Sign Up
+        {
+        isLogin?
+        <p className="bg-blue-500 text-black w-7 h-7 rounded-full flex items-center justify-center">
+            {loggedUser.username.slice(0,1).toUpperCase()}
           </p>
+        
+        :
+          <div className="flex items-center gap-4">
+            <p onClick={() => navigate("signup")}
+              className="bg-black py-1 px-3 rounded-2xl text-[15px] cursor-pointer"
+              role="button"
+              tabIndex="0"
+            >
+              Sign Up
+            </p>
 
-          <p onClick={() => navigate("/login")}
-            className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer"
-            role="button"
-            tabIndex="0"
-          >
-          Log In
-          </p>
-          
-          {/* <p className="bg-blue-500 text-black w-7 h-7 rounded-full flex items-center justify-center">
-            H
-          </p> */}
-        </div>
+            <p onClick={() => navigate("/login")}
+              className="bg-white text-black text-[15px] px-4 py-1 rounded-2xl hidden md:block cursor-pointer"
+              role="button"
+              tabIndex="0"
+            >
+              Log In
+            </p>
+
+            {/*  */}
+          </div>
+        }
+        
+
       </div>
       {/* <div className="flex items-center gap-2 mt-4">
         <p
